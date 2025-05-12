@@ -1,6 +1,7 @@
-import React, { useEffect, useRef } from 'react'
-import '@toast-ui/editor/dist/toastui-editor.css';
-import { Editor } from '@toast-ui/react-editor';
+import React from 'react'
+import dynamic from 'next/dynamic';
+const MDEditor = dynamic(() => import('@uiw/react-md-editor'), { ssr: false });
+const MarkdownPreview = dynamic(() => import('@uiw/react-markdown-preview'), { ssr: false });
 import { Button } from '@/components/ui/button';
 import { Copy } from 'lucide-react';
 
@@ -10,21 +11,8 @@ interface props{
   aiOutput:string;
 }
 const OutPutSection = ({ aiOutput }: props) => {
-  const editorRef: any = useRef(null)
-
-  useEffect(()=>{
-    if (editorRef.current) {
-      const editorInstance = editorRef.current.getInstance()
-      editorInstance.setMarkdown(aiOutput)
-    }
-  }, [aiOutput])
-
   const handleCopy = () => {
-    if (editorRef.current) {
-      const editorInstance = editorRef.current.getInstance();
-      const markdown = editorInstance.getMarkdown();
-      navigator.clipboard.writeText(markdown);
-    }
+    navigator.clipboard.writeText(aiOutput);
   };
    return (
     <div className="bg-white rounded-lg shadow-lg border w-full max-w-4xl mx-auto my-4">
@@ -38,13 +26,11 @@ const OutPutSection = ({ aiOutput }: props) => {
         </Button>
       </div>
       <div className="px-2 pb-4 sm:px-5">
-        <Editor
-          initialValue="Your result will appear here!"
-          ref={editorRef}
-          height="350px"
-          initialEditType="wysiwyg"
-          useCommandShortcut={true}
-          onChange={() => console.log(editorRef.current.getInstance().getMarkdown())}
+        <MDEditor
+          value={aiOutput}
+          height={350}
+          preview="edit"
+          onChange={() => {}}
         />
       </div>
     </div>
