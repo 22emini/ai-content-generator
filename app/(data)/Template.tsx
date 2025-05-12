@@ -8,9 +8,9 @@ export default  [
         slug:'generate-blog-title',
         form:[
             {
-                label:'Enter your blog title', // changed from 'Enter your blog niche'
+                label:'Enter your blog niche',
                 field:'input',
-                name:'title', // changed from 'niche'
+                name:'niche',
                 required:true
             },
             {

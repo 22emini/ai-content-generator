@@ -6,10 +6,15 @@ import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import path from 'path'
 import React, { useEffect, useState } from 'react'
+import { UserButton, useUser } from "@clerk/nextjs"; 
+// import UsageTrack from './UsageTrack'
 
 
 const SideBar = () => {
   const [isOpen, setIsOpen] = useState(false);
+   const { isSignedIn, user, isLoaded } = useUser()
+  const [showNavButton, setShowNavButton] = useState(true);
+  const lastScrollY = React.useRef(0);
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
@@ -24,10 +29,10 @@ const SideBar = () => {
         icon: FileClock,
         path: '/dashboard/history'
      },
-     { name:'Billing',
-        icon: Wallet,
-        path: '/dashboard/billing'
-     },
+    //  { name:'Billing',
+    //     icon: Wallet,
+    //     path: '/dashboard/billing'
+    //  },
      { name:'Settings',
         icon: Settings,
         path: '/dashboard/settings'
@@ -40,10 +45,23 @@ useEffect(()=>{
   console.log(path)
 },[])
 
+useEffect(() => {
+  const handleScroll = () => {
+    if (window.scrollY > lastScrollY.current) {
+      setShowNavButton(false); // Scrolling down
+    } else {
+      setShowNavButton(true); // Scrolling up
+    }
+    lastScrollY.current = window.scrollY;
+  };
+  window.addEventListener('scroll', handleScroll);
+  return () => window.removeEventListener('scroll', handleScroll);
+}, []);
+
   return (
     <>
       {/* Mobile Toggle Button */}
-      <div className="lg:hidden fixed top-6 left-3 z-30">
+      <div className="lg:hidden fixed top-6 left-3 z-30" style={{ display: showNavButton ? undefined : 'none' }}>
         {!isOpen && (
           <Button 
             onClick={toggleSidebar} 
@@ -76,7 +94,15 @@ useEffect(()=>{
           {/* Menu items */}
           <div  className='mt-3'>
             {MenuList.map((item) => (
-              <div key={item.name} className={`flex  gap-2 p-3 hover:bg-blue-800 hover:text-white rounded-lg cursor-pointer mt-5 ${path==item.path ? 'bg-blue-800 text-white' : ''}`}>
+              <div
+                key={item.name}
+                className={`flex gap-2 p-3 scale-95 hover:bg-blue-800 hover:text-white rounded-lg cursor-pointer mt-5 ${path==item.path ? 'bg-blue-800 text-white' : ''}`}
+                onClick={() => {
+                  if (path !== item.path) {
+                    window.location.href = item.path;
+                  }
+                }}
+              >
                 <item.icon className="mr-2 " />
                 <span>{item.name}</span>
               </div>
@@ -85,7 +111,11 @@ useEffect(()=>{
 
           {/* Progress footer */}
           <div className="mt-auto w-full pb-6">
-           
+            <div className='flex gap-2 items-center'>
+           {/* <UsageTrack /> */}
+           {` Welcome  back ${user?.firstName ?? ""}`}
+           <UserButton />
+           </div>
           </div>
         </div>
       </div>

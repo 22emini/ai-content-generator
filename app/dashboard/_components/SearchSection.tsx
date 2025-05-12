@@ -9,7 +9,7 @@ const SearchSection = ({ onSearchInput }:any) => {
     
     <p>What Would you like create Today?</p>
     <div className='w-full  flex justify-center items-center'>
-        <div  className='flex gap-2 p-2 border  w-[50%] bg-white my-5 rounded-md'>
+        <div  className='flex gap-2 p-2 border  w-[50%] bg-white my-5  rounded-3xl'>
           <Search  className='text-primary' />
           <input onChange={(event)=>onSearchInput(event.target.value)} type="text" placeholder="Search templates..." className="  outline-none  w-full  text-gray-500 bg-transparent" />
         </div>
