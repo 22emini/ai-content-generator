@@ -45,7 +45,7 @@ const  CreateContent = (props: PROPS) => {
     await SaveInDb(JSON.stringify(formData), selectedTemplate?.slug, result?.response.text())
     // Update usage after generation
     // setTotalUsage((prev: number) => prev + (result?.response.text()?.length || 0));
-    // setLoading(false)
+    setLoading(false)
      
   }
 

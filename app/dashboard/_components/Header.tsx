@@ -51,16 +51,9 @@ const Header = () => {
   };
 
   return (
-    <div className='flex  p-5 shadow-md  bg-white justify-between '>
+    <div className='flex  p-5 shadow-md  bg-white justify-end '>
         
-        <div className='flex gap-2 items-center p-2 shadow-md border  ml-8  rounded-3xl bg-white '> 
-            <Search /> 
-            <input
-              type='text'
-              placeholder='Search...'
-              className='outline-none w-24 sm:w-40 md:w-64   transition-all duration-200'
-            />
-            </div>
+       
            
          <Dialog>
         <TooltipProvider>

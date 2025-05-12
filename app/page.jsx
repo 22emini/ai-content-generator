@@ -37,7 +37,7 @@ export default function Home() {
            <SignedIn>
             
                 <Link
-                  className="text-sm mr-3 font-medium bg-primary text-white py-3 rounded-lg px-5 hover:bg-primary/90 transition-colors"
+                  className="text-sm mr-3 font-medium bg-purple-600 text-white py-3 rounded-lg px-5 hover:bg-primary/90 transition-colors"
                   href="/dashboard"
                 >
                   Dashboard
