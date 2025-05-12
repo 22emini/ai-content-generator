@@ -159,65 +159,59 @@ export default function Home() {
         </section>
 
         {/* Pricing Section */}
-        <section id="pricing" className="py-20 bg-white">
-          <div className="container">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Simple, Transparent Pricing</h2>
-              <p className="text-gray-600 max-w-2xl mx-auto">Choose the plan that works best for your content needs</p>
+         <section className="py-12 md:py-20 bg-white">
+      <div className="container px-4 mx-auto">
+        {/* Heading */}
+        <div className="text-center mb-12 md:mb-16">
+          <h2 className="text-2xl md:text-4xl font-bold mb-4 text-gray-800">Simple, Transparent Pricing</h2>
+          <p className="text-gray-600 max-w-2xl mx-auto text-sm md:text-base">
+            Choose the plan that works best for your content needs
+          </p>
+        </div>
+
+        {/* Pricing Card */}
+        <div className="flex justify-center">
+          <div className="w-full max-w-md relative border-2 border-purple-600 rounded-lg px-6 md:px-12 py-8 md:py-12 shadow-lg text-center">
+            {/* Popular Badge */}
+            <div className="absolute top-0 right-0 bg-purple-600 text-white text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-lg">
+              POPULAR
             </div>
 
-            <div className=" flex justify-center items-center  max-w-5xl mx-auto">
-             
-
-              <div className="border-2 border-purple-600 rounded-lg  px-36 py-12 shadow-lg relative">
-                <div className="absolute top-0 right-0 bg-purple-600 text-white text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-lg">
-                  POPULAR
-                </div>
-                <h3 className="text-xl font-bold mb-2">Free</h3>
-                <p className="text-gray-600 mb-6">For growing businesses and social Media Presence</p>
-                <div className="text-3xl font-bold mb-6">
-                  FREE<span className="text-lg text-gray-500">/month</span>
-                </div>
-                <ul className="space-y-3 mb-8">
-                  <li className="flex items-center">
-                    <div className="bg-purple-100 p-1 rounded-full mr-3">
-                      <svg className="h-4 w-4 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                    </div>
-                    <span className="text-gray-600">50,000 words per month</span>
-                  </li>
-                  <li className="flex items-center">
-                    <div className="bg-purple-100 p-1 rounded-full mr-3">
-                      <svg className="h-4 w-4 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                    </div>
-                    <span className="text-gray-600">All content types</span>
-                  </li>
-                  <li className="flex items-center">
-                    <div className="bg-purple-100 p-1 rounded-full mr-3">
-                      <svg className="h-4 w-4 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                    </div>
-                    <span className="text-gray-600">Priority support</span>
-                  </li>
-                  <li className="flex items-center">
-                    <div className="bg-purple-100 p-1 rounded-full mr-3">
-                      <svg className="h-4 w-4 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                    </div>
-                    <span className="text-gray-600">Advanced editing tools</span>
-                  </li>
-                </ul>
-             <SignUpButton className="w-full bg-purple-600 text-white   py-3 rounded-lg border border-purple-600 hover:bg-white  hover:text-purple-600">Get Started</SignUpButton>
-              </div>
-
+            {/* Pricing Details */}
+            <h3 className="text-xl font-bold mb-2">Free</h3>
+            <p className="text-gray-600 mb-4 text-sm">For growing businesses and social Media Presence</p>
+            
+            <div className="text-2xl md:text-3xl font-bold mb-6">
+              FREE<span className="text-base text-gray-500">/month</span>
             </div>
+
+            {/* Features */}
+            <ul className="space-y-3 mb-8 text-left px-4">
+              {[
+                '50,000 words per month',
+                'All content types',
+                'Priority support',
+                'Advanced editing tools'
+              ].map((feature, index) => (
+                <li key={index} className="flex items-center">
+                  <div className="bg-purple-100 p-1 rounded-full mr-3">
+                    <svg className="h-4 w-4 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <span className="text-gray-600 text-sm">{feature}</span>
+                </li>
+              ))}
+            </ul>
+
+            {/* Call to Action Button */}
+            <button className="w-full bg-purple-600 text-white py-3 rounded-lg border border-purple-600 hover:bg-white hover:text-purple-600 transition-colors duration-300">
+              Get Started
+            </button>
           </div>
-        </section>
+        </div>
+      </div>
+    </section>
 
         {/* CTA Section */}
         <section className="py-20 bg-black text-white">
