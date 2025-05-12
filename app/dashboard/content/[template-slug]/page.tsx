@@ -16,41 +16,25 @@ import moment from 'moment'
 // import { TotalUsageContext } from '@/app/(context)/TotalUsageContext'
 import { useRouter } from 'next/navigation'
 
-interface  PROPS{
-  slug: string
-  params: {
-    'template-slug': string
-  }
-}
-
-const  CreateContent = (props: PROPS) => {
-  const { user}= useUser();
+export default function Page({ params }: { params: { 'template-slug': string } }) {
+  const { user } = useUser();
   // const { totalUsage, setTotalUsage } = useContext(TotalUsageContext);
   const router = useRouter();
-  const[ loading, setLoading]= useState(false)
-  const[ aiOutput,setAiOutput]= useState<string>("");
-  const GenerateAIContent= async(formData:any)=>{
-    // Check usage before generating
-    // if (totalUsage >= 10000000) {
-    //   toast.error("You have passed your current limit of 10,000,000 credits. Please upgrade your plan.");
-     
-    //   return;
-    // }
-    setLoading(true)
-    const SelectedPrompt = selectedTemplate?.aiPrompt;
-    const FinalAIPrompt=JSON.stringify(formData)+"," + SelectedPrompt;
-    const result= await chatSession.sendMessage(FinalAIPrompt);
-    setAiOutput(result?.response.text())
-    toast.success("Successfully Generated Message")
-    await SaveInDb(JSON.stringify(formData), selectedTemplate?.slug, result?.response.text())
-    // Update usage after generation
-    // setTotalUsage((prev: number) => prev + (result?.response.text()?.length || 0));
-    setLoading(false)
-     
-  }
+  const [loading, setLoading] = useState(false);
+  const [aiOutput, setAiOutput] = useState<string>("");
+  const selectedTemplate: TEMPLATE | undefined = Template?.find((item) => item.slug === params['template-slug']);
 
-  const params = props.params as { 'template-slug': string };
-  const selectedTemplate:TEMPLATE|undefined= Template?.find((item)=>item.slug===params['template-slug']);
+  const GenerateAIContent = async (formData: any) => {
+    setLoading(true);
+    const SelectedPrompt = selectedTemplate?.aiPrompt;
+    const FinalAIPrompt = JSON.stringify(formData) + "," + SelectedPrompt;
+    const result = await chatSession.sendMessage(FinalAIPrompt);
+    setAiOutput(result?.response.text());
+    toast.success("Successfully Generated Message");
+    await SaveInDb(JSON.stringify(formData), selectedTemplate?.slug, result?.response.text());
+    setLoading(false);
+  };
+
   const SaveInDb = async (formData: any, slug: string | undefined, aiResp: string) => {
     if (!slug || !user?.id) {
       toast.error("Missing required fields for saving to database.");
@@ -63,8 +47,8 @@ const  CreateContent = (props: PROPS) => {
       createdBy: user.id, // Save Clerk userId instead of email
       createdAt: moment().format("DD/MM/YYYY"),
     });
-   
-  }
+  };
+
   return (
     <div className='p-4 sm:p-6 md:p-10'>
       <Link href='/dashboard' className=''>
@@ -73,7 +57,7 @@ const  CreateContent = (props: PROPS) => {
       <div className='grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 p-0 md:p-5 mt-6'>
         {/* FormSection */}
         <div className='mb-6 md:mb-0'>
-          <FormSection selectedTemplate={selectedTemplate} userFormInput={(v:any)=>GenerateAIContent(v)} loading={loading} /> 
+          <FormSection selectedTemplate={selectedTemplate} userFormInput={(v: any) => GenerateAIContent(v)} loading={loading} />
         </div>
         {/* OutputSection */}
         <div className='md:col-span-2'>
@@ -81,8 +65,6 @@ const  CreateContent = (props: PROPS) => {
         </div>
       </div>
     </div>
-  )
+  );
 }
-
-export default  CreateContent
 
