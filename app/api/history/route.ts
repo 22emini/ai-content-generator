@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { db } from "@/utils/db";
-import { AIOuput } from "@/utils/Schema";
+import { AIOuput } from "@/utils/schema";
 import { desc, eq } from "drizzle-orm"; // Import eq for equality comparison
 import { auth } from "@clerk/nextjs/server"; // Import auth from Clerk
 
